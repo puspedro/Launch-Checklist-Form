@@ -4,7 +4,7 @@ window.addEventListener("load", function(){
    let form = document.querySelector("form");
    form.addEventListener("submit", function(event){
       let pilotName = document.getElementById("pilotName");
-      let copilotname = document.getElementById("copilotName");
+      let copilotName = document.getElementById("copilotName");
       let fuelLevel = document.getElementById("fuelLevel");
       let cargoMass = document.getElementById("cargoMass");
       
@@ -15,10 +15,10 @@ window.addEventListener("load", function(){
       let fuelStatus = document.getElementById("fuelStatus");
       let cargoStatus = document.getElementById("cargoStatus");
 
-      if(!pilotName.value || !copilotname.value || !fuelLevel.value || !cargoMass.value){
+      if(!pilotName.value || !copilotName.value || !fuelLevel.value || !cargoMass.value){
          alert("All fields are required");
          event.preventDefault();
-      }else if(isNaN(pilotName.value)===false|| isNaN(copilotname.value) === false){
+      }else if(isNaN(pilotName.value)===false|| isNaN(copilotName.value) === false){
          alert("Make sure to enter valid information for each field");
          event.preventDefault();
       }else if(isNaN(fuelLevel.value)){
@@ -28,43 +28,49 @@ window.addEventListener("load", function(){
          alert("Make sure to enter valid information for each field");
          event.preventDefault();
       } else {
-
          if(fuelLevel.value<10000 && cargoMass.value > 10000){
             faultyItems.style.visibility = 'visible';
             launchStatus.innerHTML = "Shuttle not ready for launch";
             launchStatus.style.color = "red";
             pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
-            copilotStatus.innerHTML = `Co-pilot ${copilotname.value} is ready for launch`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
             fuelStatus.innerHTML = `Fuel level is too low to launch`
             cargoStatus.innerHTML = `Cargo mass is too large to launch`
-            // event.preventDefault();
+            event.preventDefault();
          }
          else if(cargoMass.value>10000){
             faultyItems.style.visibility = 'visible';
             launchStatus.innerHTML = "Shuttle not ready for launch";
             launchStatus.style.color = "red";
             pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
-            copilotStatus.innerHTML = `Co-pilot ${copilotname.value} is ready for launch`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
             fuelStatus.innerHTML = `Fuel level is ready to launch`
             cargoStatus.innerHTML = `Cargo mass is too large to launch`
-            // event.preventDefault();
+            event.preventDefault();
          }
          else if(fuelLevel.value<10000){
             faultyItems.style.visibility = 'visible';
             launchStatus.innerHTML = "Shuttle not ready for launch";
             launchStatus.style.color = "red";
             pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
-            copilotStatus.innerHTML = `Co-pilot ${copilotname.value} is ready for launch`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
             fuelStatus.innerHTML = `Fuel level is too low to launch`
             cargoStatus.innerHTML = `Cargo mass is ready to launch`
-            // event.preventDefault();
+            event.preventDefault();
 
-         } else{
+         }
+         else if(fuelLevel.value >= 10000 && cargoMass.value <= 10000){
+            faultyItems.style.visibility = 'visible';
             launchStatus.innerHTML = "Shuttle ready for launch";
             launchStatus.style.color = "green";
+            pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
+            fuelStatus.innerHTML = `Fuel level high enough for launch`
+            cargoStatus.innerHTML = `Cargo mass low enough for launch`
+            event.preventDefault();
          }
       }
-
+      
    })
 
    let json = [];
